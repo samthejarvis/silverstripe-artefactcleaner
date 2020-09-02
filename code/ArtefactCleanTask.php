@@ -14,6 +14,11 @@ class ArtefactCleanTask extends BuildTask
     protected $title = 'Display [remove] Database Artefacts';
     protected $description = 'Display and optionally run queries to delete obsolete columns, indexes, and tables.';
 
+    public function isEnabled() {
+        if(!Director::isDev()) $this->enabled = false;
+        return $this->enabled;
+    }
+
     public function run($request)
     {
         $dropping = (bool) $request->requestVar('dropping');
